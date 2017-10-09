@@ -46,11 +46,11 @@
 #Options +FollowSymlinks
 #Options +Multiviews
 
-RewriteEngine On 
+RewriteEngine On
 RewriteBase /astro/
 
-RewriteCond %{REQUEST_FILENAME} !-d 
-RewriteCond %{REQUEST_FILENAME}\.php -f 
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
 
 RewriteRule ^((?!(login|logout|signup|register|chart|relationship|transit|c|r|t|user|u|blog|b|community|lang|source|profile|friend|contribute|about|personality|magazine|report))[^/].+)$ index.php?page=$1
 
