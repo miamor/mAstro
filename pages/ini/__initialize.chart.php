@@ -32,9 +32,9 @@ $timezone = $cIn['timezone'];
 $restored_name = stripslashes($name);
 
 	$secs = "0";
-	if ($timezone < 0) 
+	if ($timezone < 0)
 		$tz = $timezone;
-	else 
+	else
 		$tz = "+" . $timezone;
 
 	// Unset any variables not initialized elsewhere in the program
@@ -72,10 +72,13 @@ $restored_name = stripslashes($name);
 	putenv("PATH=$PATH:$swephsrc");
 */
 	// get LAST_PLANET planets and all house cusps
-	if (!isset($h_sys) || strlen($h_sys) != 1) 
+	if (!isset($h_sys) || strlen($h_sys) != 1)
 		$h_sys = "p";
 
-	$cmdRun = SWEPH.SWETEST." -edir".SWEPH." -b$utdatenow -ut$utnow -p0123456789DAttt -eswe -house$my_longitude,$my_latitude,$h_sys -flsj -g, -head";
+	//$cmdRun = SWEPH.SWETEST." -edir".SWEPH." -b$utdatenow -ut$utnow -p0123456789DAttt -eswe -house$my_longitude,$my_latitude,$h_sys -flsj -g, -head";
+	$cmdRun = SWETEST." -b$utdatenow -ut$utnow -p0123456789DAttt -eswe -house$my_longitude,$my_latitude,$h_sys -flsj -g, -head";
+	//echo $cmdRun.'~~~~';
+	// opt/lampp/htdocs/astro/include/sweph/swetest -edir/opt/lampp/htdocs/astro/include/sweph/ -b28.07.1997 -ut18:10:00 -p0123456789DAttt -eswe -house105.85,21.033333333333,p -flsj -g, -head
 	exec ($cmdRun, $out, $error);
 
 /*	echo $cmdRun.'~~~~';
@@ -99,26 +102,26 @@ $restored_name = stripslashes($name);
 	//calculate the Part of Fortune
 	//is this a day chart or a night chart?
 	if ($longitude1[LAST_PLANET + 1] > $longitude1[LAST_PLANET + 7]) {
-		if ($longitude1[0] <= $longitude1[LAST_PLANET + 1] And $longitude1[0] > $longitude1[LAST_PLANET + 7]) 
+		if ($longitude1[0] <= $longitude1[LAST_PLANET + 1] And $longitude1[0] > $longitude1[LAST_PLANET + 7])
 			$day_chart = True;
-		else 
+		else
 			$day_chart = False;
 	} else {
-		if ($longitude1[0] > $longitude1[LAST_PLANET + 1] And $longitude1[0] <= $longitude1[LAST_PLANET + 7]) 
+		if ($longitude1[0] > $longitude1[LAST_PLANET + 1] And $longitude1[0] <= $longitude1[LAST_PLANET + 7])
 			$day_chart = False;
-		else 
+		else
 			$day_chart = True;
 	}
 
-	if ($day_chart == True) 
+	if ($day_chart == True)
 		$longitude1[SE_POF] = $longitude1[LAST_PLANET + 1] + $longitude1[1] - $longitude1[0];
-	else 
+	else
 		$longitude1[SE_POF] = $longitude1[LAST_PLANET + 1] - $longitude1[1] + $longitude1[0];
 
-	if ($longitude1[SE_POF] >= 360) 
+	if ($longitude1[SE_POF] >= 360)
 		$longitude1[SE_POF] = $longitude1[SE_POF] - 360;
 
-	if ($longitude1[SE_POF] < 0) 
+	if ($longitude1[SE_POF] < 0)
 		$longitude1[SE_POF] = $longitude1[SE_POF] + 360;
 
 	//add a planet - maybe some code needs to be put here
@@ -138,7 +141,7 @@ $restored_name = stripslashes($name);
 			}
 
 			if ($x == 12 And ($longitude1[$x + LAST_PLANET] > $longitude1[LAST_PLANET + 1])) {
-				if (($pl >= $longitude1[$x + LAST_PLANET] And $pl < 360) Or ($pl < $longitude1[LAST_PLANET + 1] And $pl >= 0)) 
+				if (($pl >= $longitude1[$x + LAST_PLANET] And $pl < 360) Or ($pl < $longitude1[LAST_PLANET + 1] And $pl >= 0))
 					$house_pos1[$y] = $x;
 				continue;
 			}
@@ -148,7 +151,7 @@ $restored_name = stripslashes($name);
 				continue;
 			}
 
-			if (($pl >= $longitude1[$x + LAST_PLANET]) And ($pl < $longitude1[LAST_PLANET + 1]) And ($x == 12)) 
+			if (($pl >= $longitude1[$x + LAST_PLANET]) And ($pl < $longitude1[LAST_PLANET + 1]) And ($x == 12))
 				$house_pos1[$y] = $x;
 		}
 	}
@@ -157,22 +160,22 @@ $restored_name = stripslashes($name);
 	$min_ob = $minute;
 
 	$ubt1 = 0;
-	if (($hr_ob == 12) And ($min_ob == 0)) 
+	if (($hr_ob == 12) And ($min_ob == 0))
 		$ubt1 = 1;	// this person has an unknown birth time
 
 	$ubt2 = $ubt1;
 
-	if ($ubt1 == 1) 
+	if ($ubt1 == 1)
 		$a1 = SE_TNODE;
-	else 
+	else
 		$a1 = LAST_PLANET;
 
 	$rx1 = "";
 
 	for ($i = 0; $i <= SE_TNODE; $i++) {
-		if ($speed1[$i] < 0) 
+		if ($speed1[$i] < 0)
 			$rx1 .= "R";
-		else 
+		else
 			$rx1 .= " ";
 	}
 

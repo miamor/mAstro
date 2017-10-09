@@ -35,9 +35,9 @@ $start_year = explode('|', $cIn['start'])[2];
 $restored_name = stripslashes($name);
 
 	$secs = "0";
-	if ($timezone < 0) 
+	if ($timezone < 0)
 		$tz = $timezone;
-	else 
+	else
 		$tz = "+" . $timezone;
 
 	$swephsrc = 'sweph';
@@ -76,10 +76,11 @@ $restored_name = stripslashes($name);
 	putenv("PATH=$PATH:$swephsrc");
 
 	// get LAST_PLANET planets and all house cusps
-	if (!isset($h_sys) || strlen($h_sys) != 1) 
+	if (!isset($h_sys) || strlen($h_sys) != 1)
 		$h_sys = "p";
 
-	exec (SWEPH.SWETEST." -edir".SWEPH." -b$utdatenow -ut$utnow -p0123456789DAttt -eswe -house$my_longitude,$my_latitude,$h_sys -flsj -g, -head", $out);
+	exec (SWETEST." -b$utdatenow -ut$utnow -p0123456789DAttt -eswe -house$my_longitude,$my_latitude,$h_sys -flsj -g, -head", $out);
+	//exec (SWETEST." -b$utdatenow -ut$utnow -p0123456789DAttt -eswe -house$my_longitude,$my_latitude,$h_sys -flsj -g, -head", $out);
 //	print_r($out);
 
 	// Each line of output data from swetest is exploded into array $row, giving these elements:
@@ -99,26 +100,26 @@ $restored_name = stripslashes($name);
 	//calculate the Part of Fortune
 	//is this a day chart or a night chart?
 	if ($longitude1[LAST_PLANET + 1] > $longitude1[LAST_PLANET + 7]) {
-		if ($longitude1[0] <= $longitude1[LAST_PLANET + 1] And $longitude1[0] > $longitude1[LAST_PLANET + 7]) 
+		if ($longitude1[0] <= $longitude1[LAST_PLANET + 1] And $longitude1[0] > $longitude1[LAST_PLANET + 7])
 			$day_chart = True;
-		else 
+		else
 			$day_chart = False;
 	} else {
-		if ($longitude1[0] > $longitude1[LAST_PLANET + 1] And $longitude1[0] <= $longitude1[LAST_PLANET + 7]) 
+		if ($longitude1[0] > $longitude1[LAST_PLANET + 1] And $longitude1[0] <= $longitude1[LAST_PLANET + 7])
 			$day_chart = False;
-		else 
+		else
 			$day_chart = True;
 	}
 
-	if ($day_chart == True) 
+	if ($day_chart == True)
 		$longitude1[SE_POF] = $longitude1[LAST_PLANET + 1] + $longitude1[1] - $longitude1[0];
-	else 
+	else
 		$longitude1[SE_POF] = $longitude1[LAST_PLANET + 1] - $longitude1[1] + $longitude1[0];
 
-	if ($longitude1[SE_POF] >= 360) 
+	if ($longitude1[SE_POF] >= 360)
 		$longitude1[SE_POF] = $longitude1[SE_POF] - 360;
 
-	if ($longitude1[SE_POF] < 0) 
+	if ($longitude1[SE_POF] < 0)
 		$longitude1[SE_POF] = $longitude1[SE_POF] + 360;
 
 	//add a planet - maybe some code needs to be put here
@@ -138,7 +139,7 @@ $restored_name = stripslashes($name);
 			}
 
 			if ($x == 12 And ($longitude1[$x + LAST_PLANET] > $longitude1[LAST_PLANET + 1])) {
-				if (($pl >= $longitude1[$x + LAST_PLANET] And $pl < 360) Or ($pl < $longitude1[LAST_PLANET + 1] And $pl >= 0)) 
+				if (($pl >= $longitude1[$x + LAST_PLANET] And $pl < 360) Or ($pl < $longitude1[LAST_PLANET + 1] And $pl >= 0))
 					$house_pos1[$y] = $x;
 				continue;
 			}
@@ -148,7 +149,7 @@ $restored_name = stripslashes($name);
 				continue;
 			}
 
-			if (($pl >= $longitude1[$x + LAST_PLANET]) And ($pl < $longitude1[LAST_PLANET + 1]) And ($x == 12)) 
+			if (($pl >= $longitude1[$x + LAST_PLANET]) And ($pl < $longitude1[LAST_PLANET + 1]) And ($x == 12))
 				$house_pos1[$y] = $x;
 		}
 	}
@@ -177,7 +178,7 @@ $restored_name = stripslashes($name);
 	$prog_time_to_add = $days_alive / 365.25;
 	$jd_to_use = $birth_JD + $prog_time_to_add;
 
-	exec (SWEPH.SWETEST." -edir".SWEPH." -bj$jd_to_use -ut -p0123456789DAttt -eswe -fls -g, -head", $out);	//add a planet
+	exec (SWETEST." -bj$jd_to_use -ut -p0123456789DAttt -eswe -fls -g, -head", $out);	//add a planet
 
 	// Each line of output data from swetest is exploded into array $row, giving these elements:
 	// 0 = longitude
@@ -252,7 +253,7 @@ $restored_name = stripslashes($name);
 	$utdatenow = strftime("%d.%m.%Y", mktime($inhours, $inmins, $insecs, $inmonth, $inday, $inyear));
 	$utnow = strftime("%H:%M:%S", mktime($inhours, $inmins, $insecs, $inmonth, $inday, $inyear));
 
-	exec (SWEPH.SWETEST." -edir".SWEPH." -b$utdatenow -ut$utnow -p0123456789DAttt -eswe -fls -g, -head", $out);	//add a planet
+	exec (SWETEST." -b$utdatenow -ut$utnow -p0123456789DAttt -eswe -fls -g, -head", $out);	//add a planet
 
 	// Each line of output data from swetest is exploded into array $row, giving these elements:
 	// 0 = longitude
@@ -284,7 +285,7 @@ $restored_name = stripslashes($name);
 	$prog_time_to_add = $days_alive / 365.25;
 	$jd_to_use = $birth_JD + $prog_time_to_add;
 
-	exec (SWEPH.SWETEST." -edir".SWEPH." -bj$jd_to_use -ut -p0 -eswe -fl -g, -head", $out);	//add a planet
+	exec (SWETEST." -bj$jd_to_use -ut -p0 -eswe -fl -g, -head", $out);	//add a planet
 
 	// Each line of output data from swetest is exploded into array $row, giving these elements:
 	// 0 = longitude of Sun
@@ -305,7 +306,7 @@ $restored_name = stripslashes($name);
 	$min_ob = $minute;
 
 	$ubt1 = 0;
-	if (($hr_ob == 12) And ($min_ob == 0)) 
+	if (($hr_ob == 12) And ($min_ob == 0))
 		$ubt1 = 1;	// this person has an unknown birth time
 
 	$ubt2 = $ubt1;
@@ -315,16 +316,16 @@ $restored_name = stripslashes($name);
 
 	$ubt3 = 1;		//always assume an unknown time
 
-	if ($ubt1 == 1) 
+	if ($ubt1 == 1)
 		$a1 = SE_TNODE;
-	else 
+	else
 		$a1 = LAST_PLANET;
 
 	$rx1 = "";
 	for ($i = 0; $i <= SE_TNODE; $i++) {
-		if ($speed1[$i] < 0) 
+		if ($speed1[$i] < 0)
 			$rx1 .= "R";
-		else 
+		else
 			$rx1 .= " ";
 	}
 

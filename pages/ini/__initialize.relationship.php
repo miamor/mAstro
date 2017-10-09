@@ -1,4 +1,4 @@
-<? 
+<?
 function ConvertJDtoDateandTime ($Result_JD, $current_tz) {
 	//returns date and time in local time, e.g. 9/3/2007 4:59 am
 	//get calendar day - must adjust for the way the PHP function works by adding 0.5 days to the JD of interest
@@ -92,7 +92,7 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 
 //	putenv("PATH=$PATH:$swephsrc");
 
-	if (!isset($h_sys) || strlen($h_sys) != 1) 
+	if (!isset($h_sys) || strlen($h_sys) != 1)
 		$h_sys = "p";
 
 //Person 1
@@ -124,7 +124,8 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 	$utdatenow1 = strftime("%d.%m.%Y", mktime($inhours1, $inmins1, $insecs1, $inmonth1, $inday1, $inyear1));
 	$utnow1 = strftime("%H:%M:%S", mktime($inhours1, $inmins1, $insecs1, $inmonth1, $inday1, $inyear1));
 
-	exec (SWEPH.SWETEST." -edir".SWEPH." -b$utdatenow1 -ut$utnow1 -p0123456789DAttt -eswe -house$my_longitude1,$my_latitude1,$h_sys -flsj -g, -head", $out);		//add a planet
+	exec (SWETEST." -b$utdatenow1 -ut$utnow1 -p0123456789DAttt -eswe -house$my_longitude1,$my_latitude1,$h_sys -flsj -g, -head", $out);		//add a planet
+	//exec (SWEPH.SWETEST." -edir".SWEPH." -b$utdatenow1 -ut$utnow1 -p0123456789DAttt -eswe -house$my_longitude1,$my_latitude1,$h_sys -flsj -g, -head", $out);		//add a planet
 
 	// Each line of output data from swetest is exploded into array $row, giving these elements:
 	// 0 = longitude
@@ -144,25 +145,25 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 	//calculate the Part of Fortune
 	//is this a day chart or a night chart?
 	if ($longitude1[LAST_PLANET + 1] > $longitude1[LAST_PLANET + 7]) {
-		if ($longitude1[0] <= $longitude1[LAST_PLANET + 1] And $longitude1[0] > $longitude1[LAST_PLANET + 7]) 
+		if ($longitude1[0] <= $longitude1[LAST_PLANET + 1] And $longitude1[0] > $longitude1[LAST_PLANET + 7])
 			$day_chart = True;
-		else 
+		else
 			$day_chart = False;
 	} else {
-		if ($longitude1[0] > $longitude1[LAST_PLANET + 1] And $longitude1[0] <= $longitude1[LAST_PLANET + 7]) 
+		if ($longitude1[0] > $longitude1[LAST_PLANET + 1] And $longitude1[0] <= $longitude1[LAST_PLANET + 7])
 			$day_chart = False;
 		else $day_chart = True;
 	}
 
-	if ($day_chart == True) 
+	if ($day_chart == True)
 		$longitude1[SE_POF] = $longitude1[LAST_PLANET + 1] + $longitude1[1] - $longitude1[0];
-	else 
+	else
 		$longitude1[SE_POF] = $longitude1[LAST_PLANET + 1] - $longitude1[1] + $longitude1[0];
 
-	if ($longitude1[SE_POF] >= 360) 
+	if ($longitude1[SE_POF] >= 360)
 		$longitude1[SE_POF] = $longitude1[SE_POF] - 360;
 
-	if ($longitude1[SE_POF] < 0) 
+	if ($longitude1[SE_POF] < 0)
 		$longitude1[SE_POF] = $longitude1[SE_POF] + 360;
 
 	//add a planet - maybe some code needs to be put here
@@ -182,7 +183,7 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 			}
 
 			if ($x == 12 And ($longitude1[$x + LAST_PLANET] > $longitude1[LAST_PLANET + 1])) {
-				if (($pl >= $longitude1[$x + LAST_PLANET] And $pl < 360) Or ($pl < $longitude1[LAST_PLANET + 1] And $pl >= 0)) 
+				if (($pl >= $longitude1[$x + LAST_PLANET] And $pl < 360) Or ($pl < $longitude1[LAST_PLANET + 1] And $pl >= 0))
 					$house_pos1[$y] = $x;
 				continue;
 			}
@@ -192,7 +193,7 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 				continue;
 			}
 
-			if (($pl >= $longitude1[$x + LAST_PLANET]) And ($pl < $longitude1[LAST_PLANET + 1]) And ($x == 12)) 
+			if (($pl >= $longitude1[$x + LAST_PLANET]) And ($pl < $longitude1[LAST_PLANET + 1]) And ($x == 12))
 				$house_pos1[$y] = $x;
 		}
 	}
@@ -229,7 +230,8 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 	$utdatenow2 = strftime("%d.%m.%Y", mktime($inhours2, $inmins2, $insecs2, $inmonth2, $inday2, $inyear2));
 	$utnow2 = strftime("%H:%M:%S", mktime($inhours2, $inmins2, $insecs2, $inmonth2, $inday2, $inyear2));
 
-	exec (SWEPH.SWETEST." -edir".SWEPH." -b$utdatenow2 -ut$utnow2 -p0123456789DAttt -eswe -house$my_longitude2,$my_latitude2,$h_sys -flsj -g, -head", $out2);		//add a planet
+	exec (SWETEST." -b$utdatenow2 -ut$utnow2 -p0123456789DAttt -eswe -house$my_longitude2,$my_latitude2,$h_sys -flsj -g, -head", $out2);		//add a planet
+	//exec (SWEPH.SWETEST." -edir".SWEPH." -b$utdatenow2 -ut$utnow2 -p0123456789DAttt -eswe -house$my_longitude2,$my_latitude2,$h_sys -flsj -g, -head", $out2);		//add a planet
 
 	// Each line of output data from swetest is exploded into array $row, giving these elements:
 	// 0 = longitude
@@ -247,25 +249,25 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 	//calculate the Part of Fortune
 	//is this a day chart or a night chart?
 	if ($longitude2[LAST_PLANET + 1] > $longitude2[LAST_PLANET + 7]) {
-		if ($longitude2[0] <= $longitude2[LAST_PLANET + 1] And $longitude2[0] > $longitude2[LAST_PLANET + 7]) 
+		if ($longitude2[0] <= $longitude2[LAST_PLANET + 1] And $longitude2[0] > $longitude2[LAST_PLANET + 7])
 			$day_chart = True;
-		else 
+		else
 			$day_chart = False;
 	} else {
-		if ($longitude2[0] > $longitude2[LAST_PLANET + 1] And $longitude2[0] <= $longitude2[LAST_PLANET + 7]) 
+		if ($longitude2[0] > $longitude2[LAST_PLANET + 1] And $longitude2[0] <= $longitude2[LAST_PLANET + 7])
 			$day_chart = False;
 		else $day_chart = True;
 	}
 
-	if ($day_chart == True) 
+	if ($day_chart == True)
 		$longitude2[SE_POF] = $longitude2[LAST_PLANET + 1] + $longitude2[1] - $longitude2[0];
-	else 
+	else
 		$longitude2[SE_POF] = $longitude2[LAST_PLANET + 1] - $longitude2[1] + $longitude2[0];
 
-	if ($longitude2[SE_POF] >= 360) 
+	if ($longitude2[SE_POF] >= 360)
 		$longitude2[SE_POF] = $longitude2[SE_POF] - 360;
 
-	if ($longitude2[SE_POF] < 0) 
+	if ($longitude2[SE_POF] < 0)
 		$longitude2[SE_POF] = $longitude2[SE_POF] + 360;
 
 	//add a planet - maybe some code needs to be put here
@@ -285,7 +287,7 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 			}
 
 			if ($x == 12 And ($longitude2[$x + LAST_PLANET] > $longitude2[LAST_PLANET + 1])) {
-				if (($pl >= $longitude2[$x + LAST_PLANET] And $pl < 360) Or ($pl < $longitude2[LAST_PLANET + 1] And $pl >= 0)) 
+				if (($pl >= $longitude2[$x + LAST_PLANET] And $pl < 360) Or ($pl < $longitude2[LAST_PLANET + 1] And $pl >= 0))
 					$house_pos2[$y] = $x;
 				continue;
 			}
@@ -295,7 +297,7 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 				continue;
 			}
 
-			if (($pl >= $longitude2[$x + LAST_PLANET]) And ($pl < $longitude2[LAST_PLANET + 1]) And ($x == 12)) 
+			if (($pl >= $longitude2[$x + LAST_PLANET]) And ($pl < $longitude2[LAST_PLANET + 1]) And ($x == 12))
 				$house_pos2[$y] = $x;
 		}
 	}
@@ -310,7 +312,8 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 
 	$jd3 = ($jd1 + $jd2) / 2;
 
-	exec (SWEPH.SWETEST." -edir".SWEPH." -bj$jd3 -p0123456789DAttt -eswe -house$my_longitude3,$my_latitude3,$h_sys -flsj -g, -head", $out3);
+	//exec (SWEPH.SWETEST." -edir".SWEPH." -bj$jd3 -p0123456789DAttt -eswe -house$my_longitude3,$my_latitude3,$h_sys -flsj -g, -head", $out3);
+	exec (SWETEST." -bj$jd3 -p0123456789DAttt -eswe -house$my_longitude3,$my_latitude3,$h_sys -flsj -g, -head", $out3);
 
 	// Each line of output data from swetest is exploded into array $row, giving these elements:
 	// 0 = longitude
@@ -327,25 +330,25 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 	//calculate the Part of Fortune
 	//is this a day chart or a night chart?
 	if ($longitude3[LAST_PLANET + 1] > $longitude3[LAST_PLANET + 7]) {
-		if ($longitude3[0] <= $longitude3[LAST_PLANET + 1] And $longitude3[0] > $longitude3[LAST_PLANET + 7]) 
+		if ($longitude3[0] <= $longitude3[LAST_PLANET + 1] And $longitude3[0] > $longitude3[LAST_PLANET + 7])
 			$day_chart = True;
-		else 
+		else
 			$day_chart = False;
 	} else {
-		if ($longitude3[0] > $longitude3[LAST_PLANET + 1] And $longitude3[0] <= $longitude3[LAST_PLANET + 7]) 
+		if ($longitude3[0] > $longitude3[LAST_PLANET + 1] And $longitude3[0] <= $longitude3[LAST_PLANET + 7])
 			$day_chart = False;
 		else $day_chart = True;
 	}
 
-	if ($day_chart == True) 
+	if ($day_chart == True)
 		$longitude3[SE_POF] = $longitude3[LAST_PLANET + 1] + $longitude3[1] - $longitude3[0];
-	else 
+	else
 		$longitude3[SE_POF] = $longitude3[LAST_PLANET + 1] - $longitude3[1] + $longitude3[0];
 
-	if ($longitude3[SE_POF] >= 360) 
+	if ($longitude3[SE_POF] >= 360)
 		$longitude3[SE_POF] = $longitude3[SE_POF] - 360;
 
-	if ($longitude3[SE_POF] < 0) 
+	if ($longitude3[SE_POF] < 0)
 		$longitude3[SE_POF] = $longitude3[SE_POF] + 360;
 
 	//add a planet - maybe some code needs to be put here
@@ -365,7 +368,7 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 			}
 
 			if ($x == 12 And ($longitude3[$x + LAST_PLANET] > $longitude3[LAST_PLANET + 1])) {
-				if (($pl >= $longitude3[$x + LAST_PLANET] And $pl < 360) Or ($pl < $longitude3[LAST_PLANET + 1] And $pl >= 0)) 
+				if (($pl >= $longitude3[$x + LAST_PLANET] And $pl < 360) Or ($pl < $longitude3[LAST_PLANET + 1] And $pl >= 0))
 					$house_pos3[$y] = $x;
 				continue;
 			}
@@ -375,7 +378,7 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 				continue;
 			}
 
-			if (($pl >= $longitude3[$x + LAST_PLANET]) And ($pl < $longitude3[LAST_PLANET + 1]) And ($x == 12)) 
+			if (($pl >= $longitude3[$x + LAST_PLANET]) And ($pl < $longitude3[LAST_PLANET + 1]) And ($x == 12))
 				$house_pos3[$y] = $x;
 		}
 	}
@@ -495,7 +498,7 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 			}
 
 			if ($x == 12 And ($hc3[$x] > $hc3[1])) {
-				if (($pl >= $hc3[$x] And $pl < 360) Or ($pl < $hc3[1] And $pl >= 0)) 
+				if (($pl >= $hc3[$x] And $pl < 360) Or ($pl < $hc3[1] And $pl >= 0))
 					$house_pos3[$y] = $x;
 				continue;
 			}
@@ -505,7 +508,7 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 				continue;
 			}
 
-			if (($pl >= $hc3[$x]) And ($pl < $hc3[1]) And ($x == 12)) 
+			if (($pl >= $hc3[$x]) And ($pl < $hc3[1]) And ($x == 12))
 				$house_pos3[$y] = $x;
 		}
 	}
@@ -516,7 +519,7 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 	$ser_L2 = serialize($L3);
 	$ser_hc1 = serialize($hc3);
 
-	
+
 //	$Drx1 = $rx1 = $Drx2;
 	$Drx1 = "";
 	for ($i = 0; $i <= SE_TNODE; $i++) {
@@ -525,7 +528,7 @@ $timezone2 = explode('::', $cIn['timezone'])[1];
 	}
 
 	$Drx2 = $Drx1;
-	
+
 	// to make GET string shorter (for IE6)
 	for ($i = 0; $i <= LAST_PLANET; $i++) {
 		$D_L1[$i] = $longitude3[$i];
@@ -559,4 +562,3 @@ $sunSign2 = $sign_name[floor($longitude2[0] / 30) + 1];
 $sunSignCode = trendCode($sunSign1).'-'.trendCode($sunSign2);
 
 //if (!$cIn['thumb']) $change = changeValue($tb, "`id` = '{$iid}' ", "`thumb` = '{$sunSignCode}' ");
-
