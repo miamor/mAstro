@@ -55,7 +55,7 @@ class Config {
 	private $host = "localhost";
 	private $db_name = "mastro";
 	private $username = "root";
-	private $password = "";
+	private $password = "abc123";
 	protected $conn;
 	public $u;
 	public $request;

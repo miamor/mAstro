@@ -33,9 +33,9 @@ function redirect(location) {
 		else window.location.href = location;
 //	}, time)
 }
-$.fn.digits = function(){ 
-	return this.each(function(){ 
-		$(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 
+$.fn.digits = function(){
+	return this.each(function(){
+		$(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
 	})
 }
 
@@ -67,8 +67,8 @@ function htip(a) {
 	}
 }
 function stip(d) {
-		$("." + d).fadeIn(1E3);
-		setTimeout("htip('" + d + "')", 5E3)
+	$("." + d).fadeIn(1E3);
+	setTimeout("htip('" + d + "')", 5E3)
 }
 
 function validator () {
@@ -400,7 +400,7 @@ function flatApp () {
 			var id = $(this).attr('id');
 			$('button.to-collapse[data-target="#' + id + '"]').html('<i class="fa fa-chevron-down"></i>');
 		});
-		
+
 		$('.collapse').on('show.bs.collapse', function() {
 			var id = $(this).attr('id');
 			$('a.block-collapse[href="#' + id + '"] span.right-icon').html('<i class="glyphicon glyphicon-minus icon-collapse"></i>');

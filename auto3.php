@@ -62,7 +62,7 @@ function getData ($_uname, $name, $mes) {
 	preg_match("/(ở|nơi sinh)(.*)/", $mesPl, $bplace);
 	// name of the chart
 	preg_match("/\[(.*)\]/", $mess, $cname);
-//	$cname = (isset($cname[1])) ? $cname[1] : $name.' - '.date("d-m-y h:i:s");
+	//$cname = (isset($cname[1])) ? $cname[1] : $name.' - '.date("d-m-y h:i:s");
 	$cname = (isset($cname[1])) ? $cname[1] : null;
 
 	if ($bday[1] && $bhour[1] && $mesPl && $cname && $gender) {
@@ -160,7 +160,10 @@ function reply ($repData) {
 
 //set url
 //$url = $_GET['url'];
-$url = 'https://m.facebook.com/a/comment.php?parent_comment_id=689974097850436&parent_redirect_comment_token=677025992478580_689974097850436&fs=0&comment_logging&ft_ent_identifier=677025992478580&gfid=AQDmacXKxi07sYM7&av=100006049054406';
+//$url = 'https://m.facebook.com/a/comment.php?parent_comment_id=689974097850436&parent_redirect_comment_token=677025992478580_689974097850436&fs=0&comment_logging&ft_ent_identifier=677025992478580&gfid=AQDmacXKxi07sYM7&av=100006049054406';
+//$url = 'https://m.facebook.com/search/top/?q=people+who+work+at+google&source=filter&isTrending=0&refid=46';
+$url = 'https://m.facebook.com/search/100001144022164/pages-liked';
+echo $url.'<br/>';
 $url = 'https://m.facebook.com/login.php?next='.urlencode($url);
 echo $url.'<hr/>';
 //$url = 'https://m.facebook.com/login.php?next=https%3A%2F%2Fm.facebook.com%2Fstory.php%3Fstory_fbid%3D677025992478580%26id%3D100005135560209%26p%3D'.$p.'&refsrc=https%3A%2F%2Fm.facebook.com%2Fstory.php&refid=52';
@@ -173,9 +176,54 @@ $fields = array(
 	'login' => 'Login'
 );
 $result = cURL($url, $fields);
-echo $result;
 
 $_SESSION['k'] = 1;
 
+//echo $result;
+
 //close connection
 //curl_close($ch);
+
+$classname = 'w3-example';
+$dom = new DOMDocument;
+$dom->loadHTML($result);
+/*$xpath = new DOMXPath($dom);
+$results = $xpath->query("//*[@class='" . $classname . "']");
+if ($results->length > 0) {
+    echo $review = $results->item(0)->nodeValue;
+}*/
+
+//$information = $dom->getElementsByClassName('table'); 
+//$links = $information->getElementsByTagName('td');
+
+
+$xpath = new DOMXPath($dom);
+$divNodes = $xpath->query("//div[@class='bp']");
+$node = $divNodes->item(0);
+for ($i = 0; $i < $divNodes->length; $i++) {
+	$div = $divNodes->item($i);
+	echo '<b>'.$div->nodeValue.'</b><br/>';
+	$links = $div->getElementsByTagName('a');
+	foreach ($links as $link) {
+		echo $link->getAttribute('href');
+		echo '<br/>';
+	}
+	echo '<hr/>';
+}
+
+/*
+//$div = $dom->getElementsByClassName('bq'); 
+$classname = 'bq';
+$xpath = new DOMXPath($dom);
+//$divNodes = $xpath->query("//*[@class='bq']");
+$divNodes = $xpath->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $classname ')]");
+for ($i = 0; $i < $divNodes->length; $i++) {
+	$div = $divNodes->item($i);
+	echo $div;
+	$links = $div->getElementsByTagName('a');
+	foreach ($links as $link) {
+		echo $link->getAttribute('href');
+		echo '<br/>';
+	}
+}
+*/
